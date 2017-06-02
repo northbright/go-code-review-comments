@@ -45,7 +45,7 @@
 
 ## 注释语句
 
-请参考https://golang.org/doc/effective_go.html#commentary。即使看上去有一点冗余，注释声明应该是完整的句子。这样可以在提取注释到godoc文档的时候，有较好的格式。注释应该以被表述的东西的名字开始，以句号结束：
+请参考<https://golang.org/doc/effective_go.html#commentary>。即使看上去有一点冗余，注释声明应该是完整的句子。这样可以在提取注释到godoc文档的时候，有较好的格式。注释应该以被表述的东西的名字开始，以句号结束：
 
 ```go
 // Request represents a request to run a command.
