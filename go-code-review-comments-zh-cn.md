@@ -59,37 +59,25 @@ func Encode(w io.Writer, req *Request) { ...
 
 ## Contexts
 
-Values of the context.Context type carry security credentials,
-tracing information, deadlines, and cancellation signals across API
-and process boundaries. Go programs pass Contexts explicitly along
-the entire function call chain from incoming RPCs and HTTP requests
-to outgoing requests.
+context.Context的值可以跨API和进程，携带安全凭据，跟踪信息，截止时间以及取消信号。Go程序在进入的RPC和HTTP请求到外出的HTTP请求的整个函数调用链中，显式的传递Contexts。
 
-Most functions that use a Context should accept it as their first parameter:
+绝大多数使用Context的函数应该把它作为第一个参数：
 
 ```
 func F(ctx context.Context, /* other arguments */) {}
 ```
 
-A function that is never request-specific may use context.Background(),
-but err on the side of passing a Context even if you think you don't need
-to. The default case is to pass a Context; only use context.Background()
-directly if you have a good reason why the alternative is a mistake.
+一个非请求相关的函数应该使用context.Background()，而不是传递Context，即使你认为不需要。
+通常默认情况是：传递一个Context; 只有在以下情况下才直接使用context.Background()：你有很好的理由说明其他选择是错误的。
 
-Don't add a Context member to a struct type; instead add a ctx parameter
-to each method on that type that needs to pass it along. The one exception
-is for methods whose signature must match an interface in the standard library
-or in a third party library.
+不要把Context作为一个成员添加到一个结构体中; 而是为该结构体类型的每个需要传递Context的方法添加一个ctx的参数。唯一的例外是：该方法必须要满足标准库或者第三方的一个接口(interface)。
 
-Don't create custom Context types or use interfaces other than Context in
-function signatures.
 
-If you have application data to pass around, put it in a parameter,
-in the receiver, in globals, or, if it truly belongs there, in a Context value.
+不要创建客制化的Context类型或者在函数中使用非Context类型的接口(interface)。
 
-Contexts are immutable, so it's fine to pass the same ctx to multiple
-calls that share the same deadline, cancellation signal, credentials,
-parent trace, etc.
+如果你需要传递应用的数据，把它放入参数，接受者，全局变量或者一个Context值，如果它真的属于那里。
+
+Context是不可变的，所以传递相同的ctx到多个共享截止时间，取消信号，凭据，跟踪信息等的多个调用中是没有问题的。
 
 ## Copying
 
